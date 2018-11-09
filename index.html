@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+
+<body>
+	<script>
+	
+		function ajax(url, options){
+			options = options || {}
+			var request = new XMLHttpRequest();
+			return new Promise(function(resolve, reject){
+				request.onreadystatechange = function(){
+					if (request.readyState === 4){
+						if (request.status === 200){
+							resolve(request.responseText)
+						} else {
+							reject(request.status)
+						}
+					}
+				}
+				request.open(options.method || 'GET', url)
+				request.send(options.data || [])
+			})
+		}
+		
+		var myAjax = ajax('http://www.gzjht.com/2019kaoqian/data.php');
+		
+		myAjax.then(function(r){
+			console.log(r)
+		}, function(status){
+			console.log('error', status)
+		});
+	
+	</script>
+</body>
+</html>
